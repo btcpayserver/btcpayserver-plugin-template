@@ -9,11 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BTCPayServer.Plugins.Template;
 
-public class PluginDbContext : DbContext
+public class MyPluginDbContext : DbContext
 {
     private readonly bool _designTime;
 
-    public PluginDbContext(DbContextOptions<PluginDbContext> options, bool designTime = false)
+    public MyPluginDbContext(DbContextOptions<MyPluginDbContext> options, bool designTime = false)
         : base(options)
     {
         _designTime = designTime;

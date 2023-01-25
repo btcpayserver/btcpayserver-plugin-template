@@ -13,9 +13,9 @@ namespace BTCPayServer.Plugins.Template;
 [Authorize(AuthenticationSchemes = AuthenticationSchemes.Cookie, Policy = Policies.CanViewProfile)]
 public class UIPluginController : Controller
 {
-    private readonly PluginService _PluginService;
+    private readonly MyPluginService _PluginService;
 
-    public UIPluginController(PluginService PluginService)
+    public UIPluginController(MyPluginService PluginService)
     {
         _PluginService = PluginService;
     }

@@ -9,15 +9,17 @@ namespace BTCPayServer.Plugins.Template;
 
 public class PluginMigrationRunner : IHostedService
 {
-    private readonly PluginDbContextFactory _PluginDbContextFactory;
-    private readonly PluginService _PluginService;
+    private readonly MyPluginDbContextFactory _PluginDbContextFactory;
+    private readonly MyPluginService _PluginService;
     private readonly ISettingsRepository _settingsRepository;
 
-    public PluginMigrationRunner(PluginDbContextFactory PluginDbContextFactory, ISettingsRepository settingsRepository,
-        PluginService PluginService)
+    public PluginMigrationRunner(
+        ISettingsRepository settingsRepository,
+        MyPluginDbContextFactory PluginDbContextFactory,
+        MyPluginService PluginService)
     {
-        _PluginDbContextFactory = PluginDbContextFactory;
         _settingsRepository = settingsRepository;
+        _PluginDbContextFactory = PluginDbContextFactory;
         _PluginService = PluginService;
     }
 
@@ -25,16 +27,16 @@ public class PluginMigrationRunner : IHostedService
     {
         PluginDataMigrationHistory settings = await _settingsRepository.GetSettingAsync<PluginDataMigrationHistory>() ??
                                               new PluginDataMigrationHistory();
-        await using PluginDbContext ctx = _PluginDbContextFactory.CreateContext();
+        await using var ctx = _PluginDbContextFactory.CreateContext();
         await ctx.Database.MigrateAsync(cancellationToken);
-        
+
         // settings migrations
         if (!settings.UpdatedSomething)
         {
             settings.UpdatedSomething = true;
             await _settingsRepository.UpdateSetting(settings);
         }
-        
+
         // test record
         await _PluginService.AddTestDataRecord();
     }

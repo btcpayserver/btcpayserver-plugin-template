@@ -8,20 +8,21 @@ namespace BTCPayServer.Plugins.Template;
 
 public class Plugin : BaseBTCPayServerPlugin
 {
-    public override string Identifier { get; } = "BTCPayServer.Plugins.Template";
-    public override string Name { get; } = "Plugin Template";
-    public override string Description { get; } = "This is the plugin description";
+    public override IBTCPayServerPlugin.PluginDependency[] Dependencies { get; } = new[]
+    {
+        new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=1.7.4" }
+    };
 
     public override void Execute(IServiceCollection services)
     {
         services.AddSingleton<IUIExtension>(new UIExtension("TemplatePluginHeaderNav", "header-nav"));
         services.AddHostedService<ApplicationPartsLogger>();
         services.AddHostedService<PluginMigrationRunner>();
-        services.AddSingleton<PluginService>();
-        services.AddSingleton<PluginDbContextFactory>();
-        services.AddDbContext<PluginDbContext>((provider, o) =>
+        services.AddSingleton<MyPluginService>();
+        services.AddSingleton<MyPluginDbContextFactory>();
+        services.AddDbContext<MyPluginDbContext>((provider, o) =>
         {
-            PluginDbContextFactory factory = provider.GetRequiredService<PluginDbContextFactory>();
+            MyPluginDbContextFactory factory = provider.GetRequiredService<MyPluginDbContextFactory>();
             factory.ConfigureBuilder(o);
         });
     }
