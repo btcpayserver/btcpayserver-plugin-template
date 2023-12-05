@@ -8,9 +8,9 @@ namespace BTCPayServer.Plugins.Template;
 
 public class Plugin : BaseBTCPayServerPlugin
 {
-    public override IBTCPayServerPlugin.PluginDependency[] Dependencies { get; } = new[]
+    public override IBTCPayServerPlugin.PluginDependency[] Dependencies { get; } =
     {
-        new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=1.8.2" }
+        new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=1.12.0" }
     };
 
     public override void Execute(IServiceCollection services)
@@ -22,7 +22,7 @@ public class Plugin : BaseBTCPayServerPlugin
         services.AddSingleton<MyPluginDbContextFactory>();
         services.AddDbContext<MyPluginDbContext>((provider, o) =>
         {
-            MyPluginDbContextFactory factory = provider.GetRequiredService<MyPluginDbContextFactory>();
+            var factory = provider.GetRequiredService<MyPluginDbContextFactory>();
             factory.ConfigureBuilder(o);
         });
     }

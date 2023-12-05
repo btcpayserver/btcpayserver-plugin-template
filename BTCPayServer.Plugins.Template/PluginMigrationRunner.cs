@@ -9,25 +9,25 @@ namespace BTCPayServer.Plugins.Template;
 
 public class PluginMigrationRunner : IHostedService
 {
-    private readonly MyPluginDbContextFactory _PluginDbContextFactory;
-    private readonly MyPluginService _PluginService;
+    private readonly MyPluginDbContextFactory _pluginDbContextFactory;
+    private readonly MyPluginService _pluginService;
     private readonly ISettingsRepository _settingsRepository;
 
     public PluginMigrationRunner(
         ISettingsRepository settingsRepository,
-        MyPluginDbContextFactory PluginDbContextFactory,
-        MyPluginService PluginService)
+        MyPluginDbContextFactory pluginDbContextFactory,
+        MyPluginService pluginService)
     {
         _settingsRepository = settingsRepository;
-        _PluginDbContextFactory = PluginDbContextFactory;
-        _PluginService = PluginService;
+        _pluginDbContextFactory = pluginDbContextFactory;
+        _pluginService = pluginService;
     }
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        PluginDataMigrationHistory settings = await _settingsRepository.GetSettingAsync<PluginDataMigrationHistory>() ??
-                                              new PluginDataMigrationHistory();
-        await using var ctx = _PluginDbContextFactory.CreateContext();
+        var settings = await _settingsRepository.GetSettingAsync<PluginDataMigrationHistory>() ??
+                       new PluginDataMigrationHistory();
+        await using var ctx = _pluginDbContextFactory.CreateContext();
         await ctx.Database.MigrateAsync(cancellationToken);
 
         // settings migrations
@@ -38,7 +38,7 @@ public class PluginMigrationRunner : IHostedService
         }
 
         // test record
-        await _PluginService.AddTestDataRecord();
+        await _pluginService.AddTestDataRecord();
     }
 
     public Task StopAsync(CancellationToken cancellationToken)
@@ -46,7 +46,7 @@ public class PluginMigrationRunner : IHostedService
         return Task.CompletedTask;
     }
 
-    public class PluginDataMigrationHistory
+    private class PluginDataMigrationHistory
     {
         public bool UpdatedSomething { get; set; }
     }

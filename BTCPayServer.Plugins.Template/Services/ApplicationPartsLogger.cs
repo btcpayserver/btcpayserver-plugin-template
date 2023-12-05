@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace BTCPayServer.Plugins.Template;
+namespace BTCPayServer.Plugins.Template.Services;
 
 public class ApplicationPartsLogger : IHostedService
 {

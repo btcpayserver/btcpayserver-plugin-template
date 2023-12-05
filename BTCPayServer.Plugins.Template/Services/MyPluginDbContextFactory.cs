@@ -4,15 +4,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Options;
 
-namespace BTCPayServer.Plugins.Template;
+namespace BTCPayServer.Plugins.Template.Services;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MyPluginDbContext>
 {
     public MyPluginDbContext CreateDbContext(string[] args)
     {
-        DbContextOptionsBuilder<MyPluginDbContext> builder = new DbContextOptionsBuilder<MyPluginDbContext>();
+        var builder = new DbContextOptionsBuilder<MyPluginDbContext>();
 
-        builder.UseSqlite("Data Source=temp.db");
+        // FIXME: Somehow the DateTimeOffset column types get messed up when not using Postgres
+        // https://docs.microsoft.com/en-us/ef/core/managing-schemas/migrations/providers?tabs=dotnet-core-cli
+        builder.UseNpgsql("User ID=postgres;Host=127.0.0.1;Port=39372;Database=designtimebtcpay");
 
         return new MyPluginDbContext(builder.Options, true);
     }
@@ -26,7 +28,7 @@ public class MyPluginDbContextFactory : BaseDbContextFactory<MyPluginDbContext>
 
     public override MyPluginDbContext CreateContext()
     {
-        DbContextOptionsBuilder<MyPluginDbContext> builder = new DbContextOptionsBuilder<MyPluginDbContext>();
+        var builder = new DbContextOptionsBuilder<MyPluginDbContext>();
         ConfigureBuilder(builder);
         return new MyPluginDbContext(builder.Options);
     }

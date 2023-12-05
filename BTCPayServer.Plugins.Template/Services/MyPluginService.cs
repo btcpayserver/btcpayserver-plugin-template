@@ -8,16 +8,16 @@ namespace BTCPayServer.Plugins.Template.Services;
 
 public class MyPluginService
 {
-    private readonly MyPluginDbContextFactory _PluginDbContextFactory;
+    private readonly MyPluginDbContextFactory _pluginDbContextFactory;
 
-    public MyPluginService(MyPluginDbContextFactory PluginDbContextFactory)
+    public MyPluginService(MyPluginDbContextFactory pluginDbContextFactory)
     {
-        _PluginDbContextFactory = PluginDbContextFactory;
+        _pluginDbContextFactory = pluginDbContextFactory;
     }
 
     public async Task AddTestDataRecord()
     {
-        await using var context = _PluginDbContextFactory.CreateContext();
+        await using var context = _pluginDbContextFactory.CreateContext();
 
         await context.PluginRecords.AddAsync(new PluginData { Timestamp = DateTimeOffset.UtcNow });
         await context.SaveChangesAsync();
@@ -25,7 +25,7 @@ public class MyPluginService
 
     public async Task<List<PluginData>> Get()
     {
-        await using var context = _PluginDbContextFactory.CreateContext();
+        await using var context = _pluginDbContextFactory.CreateContext();
 
         return await context.PluginRecords.ToListAsync();
     }
