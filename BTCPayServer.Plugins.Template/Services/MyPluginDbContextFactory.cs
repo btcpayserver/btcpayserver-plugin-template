@@ -3,6 +3,8 @@ using BTCPayServer.Abstractions.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Options;
+using System;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace BTCPayServer.Plugins.Template.Services;
 
@@ -26,7 +28,7 @@ public class MyPluginDbContextFactory : BaseDbContextFactory<MyPluginDbContext>
     {
     }
 
-    public override MyPluginDbContext CreateContext()
+    public override MyPluginDbContext CreateContext(Action<NpgsqlDbContextOptionsBuilder> npgsqlOptionsAction = null)
     {
         var builder = new DbContextOptionsBuilder<MyPluginDbContext>();
         ConfigureBuilder(builder);
