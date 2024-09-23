@@ -5,8 +5,8 @@
 
   <!-- Plugin specific properties -->
   <PropertyGroup>
-    <Product>BTCPay Server Plugin Template</Product>
-    <Description>A template for your own BTCPay Server plugin.</Description>
+    <Product>Nano Plugin</Product>
+    <Description>A plugin to accept Nano.</Description>
     <Version>1.0.0</Version>
   </PropertyGroup>
 

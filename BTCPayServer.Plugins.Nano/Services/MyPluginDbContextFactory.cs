@@ -6,7 +6,7 @@ using Microsoft.Extensions.Options;
 using System;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
-namespace BTCPayServer.Plugins.Template.Services;
+namespace BTCPayServer.Plugins.Nano.Services;
 
 public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MyPluginDbContext>
 {
@@ -24,7 +24,7 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<MyPluginDb
 
 public class MyPluginDbContextFactory : BaseDbContextFactory<MyPluginDbContext>
 {
-    public MyPluginDbContextFactory(IOptions<DatabaseOptions> options) : base(options, "BTCPayServer.Plugins.Template")
+    public MyPluginDbContextFactory(IOptions<DatabaseOptions> options) : base(options, "BTCPayServer.Plugins.Nano")
     {
     }
 
