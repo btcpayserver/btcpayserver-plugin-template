@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 
 namespace BTCPayServer.Plugins.Template.Services;
 
+// This is a demo class to show you how to integrate Hosted Service in the BTCPayServer plugin. Remove it from your project.
 public class ApplicationPartsLogger : IHostedService
 {
     private readonly ILogger<ApplicationPartsLogger> _logger;
