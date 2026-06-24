@@ -17,4 +17,10 @@
     <ProjectReference Include="..\..\submodules\btcpayserver\BTCPayServer.Tests\BTCPayServer.Tests.csproj" />
   </ItemGroup>
 
+  <!-- This will make sure that referencing BTCPayServer doesn't put any artifact in the published directory -->
+  <ItemDefinitionGroup>
+      <ProjectReference>
+          <Properties>StaticWebAssetsEnabled=false</Properties>
+      </ProjectReference>
+  </ItemDefinitionGroup>
 </Project>
