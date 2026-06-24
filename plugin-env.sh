@@ -1,0 +1,1 @@
+PROJECT="BTCPayServer.Plugins.Template"

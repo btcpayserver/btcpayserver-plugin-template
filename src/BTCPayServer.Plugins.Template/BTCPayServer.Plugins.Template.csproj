@@ -1,10 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
-  <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
-  </PropertyGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <!-- Plugin specific properties -->
   <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
     <Product>BTCPay Server Plugin Template</Product>
     <Description>A template for your own BTCPay Server plugin.</Description>
     <Version>1.0.0</Version>
@@ -27,7 +25,7 @@
   </ItemDefinitionGroup>
 
 
-  <!-- If you need Entity Framework, you can uncomment this. This will make it usable in your project without publishing assemblies
+    <!-- If you need Entity Framework, you can uncomment this. This will make it usable in your project without publishing assemblies
   already referenced by BTCPay Server Core project -->
   <!--
   <ItemGroup Condition="$(Configuration) != 'Release'">
@@ -41,7 +39,8 @@
   </ItemGroup>
   -->
 
-  <!-- If you reference another project, by default, the dlls won't be copied in the published plugin, you need <Private>true</Private> -->
+    <!-- If you reference another project, by default, the dlls won't be copied in the published plugin, so you need <Private>true</Private> to force the dependency
+    to be bundled in the published plugin -->
   <!--
   <ItemGroup>
     <ProjectReference Include="..\submodules\some-client\src\Some.Client\Some.Client.csproj">
@@ -51,7 +50,8 @@
   -->
 
   <ItemGroup>
-    <ProjectReference Include="..\btcpayserver\BTCPayServer\BTCPayServer.csproj" />
+    <ProjectReference Include="..\..\submodules\btcpayserver\BTCPayServer\BTCPayServer.csproj" />
     <EmbeddedResource Include="Resources\**" />
   </ItemGroup>
+
 </Project>
