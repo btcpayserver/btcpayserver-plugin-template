@@ -25,7 +25,9 @@ If you already cloned without submodules, initialize them with:
 git submodule update --init --recursive
 ```
 
-Rename the template to your plugin name. The name should follow .NET assembly naming conventions: PascalCase, optionally separated by dots. For example: `MyPlugin` or `MyCompany.MyPlugin`.
+### Rename the plugin
+
+For renaming the plugin, choose a name following .NET assembly naming conventions: PascalCase, optionally separated by dots. For example: `MyPlugin` or `MyCompany.MyPlugin`.
 
 Then replace all occurrences of `BTCPayServer.Plugins.Template` with `PLUGIN_NAME`.
 
@@ -58,8 +60,11 @@ Verify that the plugin builds:
 dotnet build
 ```
 
+### Clean up template project references
+
 Finally, clean up the remaining template project references:
 
+First, set the remote URL to your own GitHub repository:
 ```bash
 git remote set-url origin git@github.com:<your-github-user>/<your-plugin-repository>.git
 ```
