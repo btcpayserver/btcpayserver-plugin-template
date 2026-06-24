@@ -58,6 +58,19 @@ Verify that the plugin builds:
 dotnet build
 ```
 
+Finally, clean up the remaining template project references:
+
+```bash
+git remote set-url origin git@github.com:<your-github-user>/<your-plugin-repository>.git
+```
+
+Then replace this README with documentation for your own plugin. At minimum, document what the plugin does, how to install it, how to configure it, and how to build or test it locally.
+
+You may also want to review and update:
+
+- [LICENSE](LICENSE)
+- package metadata in your plugin `.csproj`
+
 ## Debugging the plugin
 
 Register the plugin with the BTCPay Server development environment:
