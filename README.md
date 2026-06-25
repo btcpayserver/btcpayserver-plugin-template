@@ -69,7 +69,9 @@ First, set the remote URL to your own GitHub repository:
 git remote set-url origin git@github.com:<your-github-user>/<your-plugin-repository>.git
 ```
 
-Then replace this README with documentation for your own plugin. At minimum, document what the plugin does, how to install it, how to configure it, and how to build or test it locally.
+Then replace this README with documentation for your own plugin.
+Keep it user-centric. Document what the plugin does and how to configure it. We advise to include screenshots and video.
+Avoid developer-centric jargon.
 
 You may also want to review and update:
 
