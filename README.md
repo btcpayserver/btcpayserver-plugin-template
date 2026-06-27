@@ -25,6 +25,25 @@ If you already cloned without submodules, initialize them with:
 git submodule update --init --recursive
 ```
 
+### Update the btcpayserver submodule to the latest tagged version
+
+Make sure that your submodules reference the latest stable version of BTCPay Server.
+
+```bash
+cd modules/btcpayserver
+git fetch --tags
+latest_tag=$(
+  git tag -l 'v[0-9]*.[0-9]*.[0-9]*' \
+    | grep -E '^v[0-9]+\.[0-9]+\.[0-9]+$' \
+    | sort -V \
+    | tail -n 1
+)
+git checkout "$latest_tag"
+cd ../..
+```
+
+Update `src/BTCPayServer.Plugins.Template/Plugin.cs`'s `PluginDependency` with the version of BTCPayServer that you fetched in `latest_tag`.
+
 ### Rename the plugin
 
 For renaming the plugin, choose a name following .NET assembly naming conventions: PascalCase, optionally separated by dots. For example: `MyPlugin` or `MyCompany.MyPlugin`.
