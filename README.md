@@ -81,14 +81,9 @@ dotnet build
 
 ### Clean up template project references
 
-Finally, clean up the remaining template project references:
+Finally, clean up the remaining template project references.
 
-First, set the remote URL to your own GitHub repository:
-```bash
-git remote set-url origin git@github.com:<your-github-user>/<your-plugin-repository>.git
-```
-
-Then replace this README with documentation for your own plugin.
+Replace this README with documentation for your own plugin.
 Keep it user-centric. Document what the plugin does and how to configure it. We advise to include screenshots and video.
 Avoid developer-centric jargon.
 
@@ -96,6 +91,29 @@ You may also want to review and update:
 
 - [LICENSE](LICENSE)
 - package metadata in your plugin `.csproj`
+
+### Switching this branch to your own git repository
+
+Switch `origin` to your own repository:
+
+```bash
+git remote set-url origin git@github.com:<your-github-user>/<your-plugin-repository>.git
+```
+
+If you want to start your plugin without the template's git history, create a new initial commit:
+
+```bash
+git switch --orphan initial
+git add -A
+git commit -m "Initial commit"
+git branch -M main
+```
+
+Then push it to your repository.
+
+```bash
+git push --force-with-lease origin main
+```
 
 ## Debugging the plugin
 
