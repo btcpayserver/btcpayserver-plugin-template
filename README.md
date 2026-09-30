@@ -54,12 +54,16 @@ Here is a script you can run to do this automatically:
 ```bash
 PLUGIN_NAME="MyPlugin"
 OLD_NAME="BTCPayServer.Plugins.Template"
-export OLD_NAME PLUGIN_NAME
+AREA_NAME="MyPlugin"
+OLD_AREA="TemplateArea"
+export OLD_NAME PLUGIN_NAME AREA_NAME OLD_AREA
 
 git grep -l -z "$OLD_NAME" -- . ':!submodules' | xargs -0 perl -pi -e 's/\Q$ENV{OLD_NAME}\E/$ENV{PLUGIN_NAME}/g'
 
 git mv "src/$OLD_NAME" "src/$PLUGIN_NAME"
 git mv "src/$PLUGIN_NAME/$OLD_NAME.csproj" "src/$PLUGIN_NAME/$PLUGIN_NAME.csproj"
+git mv "src/$PLUGIN_NAME/Plugins/$OLD_AREA" "src/$PLUGIN_NAME/Plugins/$AREA_NAME"
+perl -pi -e 's/\Q"$ENV{OLD_AREA}"\E/"$ENV{AREA_NAME}"/' "src/$PLUGIN_NAME/Plugin.cs"
 
 git mv "tests/$OLD_NAME.Tests" "tests/$PLUGIN_NAME.Tests"
 git mv "tests/$PLUGIN_NAME.Tests/$OLD_NAME.Tests.csproj" "tests/$PLUGIN_NAME.Tests/$PLUGIN_NAME.Tests.csproj"
@@ -72,6 +76,10 @@ Then update the plugin metadata in `src/<YourPluginName>/<YourPluginName>.csproj
 - `Product`
 - `Description`
 - `Version`
+
+The area name must match the directory between `Plugins` and `Views`. The
+script updates both. Then customize the example controller, route, view text,
+and test for your plugin.
 
 Verify that the plugin builds:
 
@@ -134,11 +142,19 @@ docker compose up -d dev
 
 Open the solution file in your IDE and use the `BTCPayServer: Bitcoin-HTTPS` launch profile. When the debugger starts BTCPay Server, it should load your plugin. A breakpoint in `src/<YourPluginName>/Plugin.cs`, such as inside `Plugin.Execute`, should be hit during startup.
 
+Sign in and open `/template` to verify the example page and account-menu entry.
+
 ## Adding plugin code
 
-The template starts with a minimal `Plugin.cs` class:
+The template includes a working authenticated controller, Razor view, and
+account-menu UI extension. Views are stored under
+`Plugins/{AreaName}/Views`, matching BTCPay Server's area view conventions, so
+controller actions can use `View()` without an explicit view path. UI
+extensions still use `Plugin.ViewsDirectory` because they render outside the
+controller's area context.
 
-Register your services, controllers, hosted services, migrations, or other plugin components from `Execute`.
+Register additional services, controllers, hosted services, migrations, or
+other plugin components from `Plugin.Execute`.
 
 If your plugin needs Entity Framework or bundled project dependencies, see the commented examples in the plugin `.csproj` file.
 

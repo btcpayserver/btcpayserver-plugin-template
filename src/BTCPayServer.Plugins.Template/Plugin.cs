@@ -6,6 +6,9 @@ namespace BTCPayServer.Plugins.Template;
 
 public class Plugin : BaseBTCPayServerPlugin
 {
+    public const string Area = "TemplateArea";
+    public const string ViewsDirectory = "/Plugins/" + Area + "/Views";
+
     public override IBTCPayServerPlugin.PluginDependency[] Dependencies { get; } =
     {
         new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=2.4.0" }
@@ -13,5 +16,6 @@ public class Plugin : BaseBTCPayServerPlugin
 
     public override void Execute(IServiceCollection services)
     {
+        services.AddUIExtension("user-nav", $"{ViewsDirectory}/NavExtension.cshtml");
     }
 }
