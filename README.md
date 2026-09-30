@@ -30,7 +30,7 @@ git submodule update --init --recursive
 Make sure that your submodules reference the latest stable version of BTCPay Server.
 
 ```bash
-cd modules/btcpayserver
+cd submodules/btcpayserver
 git fetch --tags
 latest_tag=$(
   git tag -l 'v[0-9]*.[0-9]*.[0-9]*' \
