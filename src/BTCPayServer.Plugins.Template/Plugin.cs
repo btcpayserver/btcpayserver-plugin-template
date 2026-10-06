@@ -11,7 +11,7 @@ public class Plugin : BaseBTCPayServerPlugin
 
     public override IBTCPayServerPlugin.PluginDependency[] Dependencies { get; } =
     {
-        new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=2.4.0" }
+        new IBTCPayServerPlugin.PluginDependency { Identifier = nameof(BTCPayServer), Condition = ">=2.4.5" }
     };
 
     public override void Execute(IServiceCollection services)
